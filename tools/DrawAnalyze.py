@@ -8,41 +8,28 @@ gStyle.SetOptStat(0)
 dopred = False
 
 '''
-rm output/mediumsphonks/*
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.GJets_DR-0p4_HT-100To200*" SR & 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.GJets_DR-0p4_HT-200To400*" SR & 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.GJets_DR-0p4_HT-400To600*" SR & 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.GJets_DR-0p4_HT-600ToInf*" SR &
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.TTJets_Tune*.root" SR 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.ZGTo2NuG_Tune*.root" SR 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.WJetsToLNu_HT-70To*.root" SR &
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.WJetsToLNu_HT-100To*.root" SR &
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.WJetsToLNu_HT-200To*.root" SR &
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.WJetsToLNu_HT-400To*.root" SR 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.WJetsToLNu_HT-600To*.root" SR &
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.WJetsToLNu_HT-800To*.root" SR &
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.WJetsToLNu_HT-1200To*.root" SR &
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*Autumn18.WJetsToLNu_HT-2500To*.root" SR &
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*pMSSM_MCMC_106_19786-SUS-RunIIAutumn18*.root" SR 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*pMSSM_MCMC_473_54451-SUS-RunIIAutumn18*.root" SR 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*pMSSM_MCMC_86_7257-SUS-RunIIAutumn18*.root" SR 
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*pMSSM_MCMC_70_90438-SUS-RunIIAutumn18*.root" SR
-python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*pMSSM_MCMC_399_10275-SUS-RunIIAutumn18*.root" SR
+rm output/mediumchunks/*
+python tools/DrawAnalyze.py "/nfs/dust/cms/user/beinsam/CommonSamples/SinglePhoRandS_skimsv8/posterior-Autumn18.GJets_DR-0p4_HT-600ToInf_Tune*.root"
+
+python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_106_19786-SUS-RunIIAutumn18*.root" 
+python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_473_54451-SUS-RunIIAutumn18*.root" 
+python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_86_7257-SUS-RunIIAutumn18*.root" 
+python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_70_90438-SUS-RunIIAutumn18*.root"
+python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_399_10275-SUS-RunIIAutumn18*.root"
 
 
 
-rm output/bigsphonks/bigphotons/*
-hadd -f output/bigsphonks/bigphotons/Autumn18.GJets.root output/mediumsphonks/weightedHists_Autumn18.GJets_DR-0p4_HT*.root &
-hadd -f output/bigsphonks/bigphotons/Autumn18.TTJets.root output/mediumsphonks/weightedHists_Autumn18.TTJets_Tune*.root &
-hadd -f output/bigsphonks/bigphotons/Autumn18.ZGTo2NuG.root output/mediumsphonks/weightedHists_Autumn18.ZGTo2NuG_Tune*.root &
-hadd -f output/bigsphonks/bigphotons/Autumn18.WJetsToLNu.root output/mediumsphonks/weightedHists_Autumn18.WJetsToLNu_*.root &
-hadd -f output/bigsphonks/bigphotons/Run2018_DoubleEG.root output/mediumsphonks/weightedHists_Autumn18.GJets_DR-0p4_HT*.root
-hadd -f output/bigsphonks/bigphotons/Run2018_DoubleEG.root output/mediumsphonks/weightedHists_Autumn18.*.root
-rm output/sphognals/*
-cp output/mediumsphonks/weightedHists_pMSSM_MCMC*Autumn18_SR.root output/sphognals/
+rm output/bigchunks/*
+hadd -f output/bigchunks/Autumn18.GJets.root output/mediumchunks/weightedHists_Autumn18.GJets_DR-0p4_HT*.root &
+hadd -f output/bigchunks/Autumn18.TTJets.root output/mediumchunks/weightedHists_Autumn18.TTJets_Tune*.root &
+hadd -f output/bigchunks/Autumn18.ZGTo2NuG.root output/mediumchunks/weightedHists_Autumn18.ZGTo2NuG_Tune*.root &
+hadd -f output/bigchunks/Autumn18.WJetsToLNu.root output/mediumchunks/weightedHists_Autumn18.WJetsToLNu_*.root &
+hadd -f output/bigchunks/Run2018_DoubleEG.root output/mediumchunks/weightedHists_Autumn18.GJets_DR-0p4_HT*.root
+hadd -f output/bigchunks/Run2018_DoubleEG.root output/mediumchunks/weightedHists_Autumn18.*.root
+rm output/signals/*
+cp output/mediumchunks/weightedHists_pMSSM_MCMC*Autumn18_SR.root output/signals/
 
 
-#python tools/DrawAnalyzeSinglePho.py "/eos/uscms//store/group/lpcsusyphotons/SinglePhoRandS_skimsv8/*pMSSM_MCMC_399_10275-SUS-RunIIAutumn18*.root" SR 
 '''
 
 try: fileskey = sys.argv[1]
@@ -54,19 +41,10 @@ if 'Run20' in fileskey: isdata = True
 else: isdata = False
 
 
-try: SpecialSettings = ''.join(sys.argv[2:])
-except: SpecialSettings =  ''
 
 
-if 'TwoPixelSeeds' in SpecialSettings: pixelseedstring = "&& (Pho1_hasPixelSeed==1)"
-else: pixelseedstring = "&& (Pho1_hasPixelSeed==0)"
-
+pixelseedstring = "&& (Pho1_hasPixelSeed==0)"
 showershapestring = "&& (Pho1_passLooseSigmaIetaIeta==1)"
-
-
-#exit(0)
-
-
 universalconstraint = ' abs(HardMetMinusMet)<100 && mva_Photons1Et>20 && mva_Ngoodjets>1' + showershapestring
 universalconstraint
 universalconstraint += pixelseedstring
@@ -124,8 +102,8 @@ plotBundle['OnePho_nPhotons'] = ['NPhotons>>hadc(3,1,4)','HardMETPt>200 && NPhot
 
 
 infilekey = fileskey.split('/')[-1].replace('*','').replace('.root','')
-newfilename = 'output/mediumsphonks/weightedHists_'+infilekey+'_'+SpecialSettings+'.root'
-if 'T5' in infilekey or 'T6' in infilekey: newfilename = newfilename.replace('mediumsphonks','sphognals')
+newfilename = 'output/mediumchunks/weightedHists_'+infilekey+'.root'
+if 'T5' in infilekey or 'T6' in infilekey: newfilename = newfilename.replace('mediumchunks','signals')
 
     
 fnew = TFile(newfilename, 'recreate')
