@@ -19,4 +19,4 @@ mkdir output/mediumchunks
 mkdir output/bigchunks
 ```
 
-Now you're in business.
+Now we should be ready to make plots
