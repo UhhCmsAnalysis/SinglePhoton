@@ -5,29 +5,19 @@ from glob import glob
 gROOT.SetBatch(1)
 gStyle.SetOptStat(0)
 
-dopred = False
-
 '''
 rm output/mediumchunks/*
 python tools/DrawAnalyze.py "/nfs/dust/cms/user/beinsam/CommonSamples/SinglePhoRandS_skimsv8/posterior-Autumn18.GJets_DR-0p4_HT-600ToInf_Tune*.root"
-
-python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_106_19786-SUS-RunIIAutumn18*.root" 
-python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_473_54451-SUS-RunIIAutumn18*.root" 
-python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_86_7257-SUS-RunIIAutumn18*.root" 
-python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_70_90438-SUS-RunIIAutumn18*.root"
-python tools/DrawAnalyze.py "/eos/uscms//store/group/lpcsusyphotons/RandS_skimsv8/*pMSSM_MCMC_399_10275-SUS-RunIIAutumn18*.root"
-
+python tools/DrawAnalyze.py "/nfs/dust/cms/user/beinsam/CommonSamples/SinglePhoRandS_skimsv8/posterior-Autumn18.ZGTo2NuG_Tune*.root"
+python tools/DrawAnalyze.py "/nfs/dust/cms/user/beinsam/CommonSamples/SinglePhoRandS_skimsv8/posterior-pMSSM_MCMC_86_7257*.root"
 
 
 rm output/bigchunks/*
-hadd -f output/bigchunks/Autumn18.GJets.root output/mediumchunks/weightedHists_Autumn18.GJets_DR-0p4_HT*.root &
-hadd -f output/bigchunks/Autumn18.TTJets.root output/mediumchunks/weightedHists_Autumn18.TTJets_Tune*.root &
-hadd -f output/bigchunks/Autumn18.ZGTo2NuG.root output/mediumchunks/weightedHists_Autumn18.ZGTo2NuG_Tune*.root &
-hadd -f output/bigchunks/Autumn18.WJetsToLNu.root output/mediumchunks/weightedHists_Autumn18.WJetsToLNu_*.root &
-hadd -f output/bigchunks/Run2018_DoubleEG.root output/mediumchunks/weightedHists_Autumn18.GJets_DR-0p4_HT*.root
-hadd -f output/bigchunks/Run2018_DoubleEG.root output/mediumchunks/weightedHists_Autumn18.*.root
+hadd -f output/bigchunks/Autumn18.GJets.root output/mediumchunks/*Autumn18.GJets_DR-0p4_HT*.root
+hadd -f output/bigchunks/Autumn18.ZGTo2NuG.root output/mediumchunks/*Autumn18.ZGTo2NuG_Tune*.root
+hadd -f output/bigchunks/2018Observed.root output/bigchunks/*.root
 rm output/signals/*
-cp output/mediumchunks/weightedHists_pMSSM_MCMC*Autumn18_SR.root output/signals/
+cp output/mediumchunks/weightedHists*pMSSM_MCMC*.root output/signals/
 
 
 '''
@@ -63,10 +53,7 @@ for fname in fins: chain.Add(fname.replace('/eos/uscms/','root://cmseos.fnal.gov
 chain.Show(0)
 print 'nevents in skim =', chain.GetEntries()
 
-#chain.SetBranchStatus('NJets', 1)
-#chain.SetBranchStatus('HT', 1)
-#chain.SetBranchStatus('BTags', 1)
-#chain.SetBranchStatus('Jets', 1)
+
 isprivatesignal = bool('pMSSM' in fins)
 if isprivatesignal:
     xsecdict = {'pMSSM_MCMC_106_19786': 1.26100000e-01, 'pMSSM_MCMC_399_10275': 3.98200000e-02, 'pMSSM_MCMC_473_54451': 9.87200000e-01, 'pMSSM_MCMC_86_7257': 2.99100000e-03, 'pMSSM_MCMC_70_90438':7.52100000e-01}
@@ -94,9 +81,7 @@ plotBundle['OnePho_HardMet'] = ['min(HardMETPt,999)>>hadchadc(20,0,1000)','HardM
 plotBundle['OnePho_NJets'] = ['min(mva_Ngoodjets,9)>>hadc(11,-1,10)','HardMETPt>200 && NPhotons>=1',False]
 plotBundle['OnePho_Pho1Pt'] = ['min(analysisPhotons[0].Pt(),499.9)>>hadc(100,0,500)','HardMETPt>200 && NPhotons>=1',False]
 plotBundle['OnePho_Eta1Pt'] = ['min(analysisPhotons[0].Eta(),499.9)>>hadc(25,-5,5)','HardMETPt>200 && NPhotons>=1',False]
-plotBundle['OnePho_Pho2Pt'] = ['min(analysisPhotons[1].Pt(),499.9)>>hadc(100,0,500)','HardMETPt>200 && NPhotons>=2',False]
-plotBundle['OnePho_Eta2Pt'] = ['min(analysisPhotons[1].Eta(),499.9)>>hadc(25,-5,5)','HardMETPt>200 && NPhotons>=2',False]
-plotBundle['OnePho_ST_jets'] = ['mva_ST_jets>>hadc(16,0,800)','HardMETPt>200 && NPhotons>=1',False]
+plotBundle['OnePho_HT'] = ['mva_ST_jets>>hadc(10,100,2300)','HardMETPt>200 && NPhotons>=1',False]
 plotBundle['OnePho_ST'] = ['mva_ST>>hadc(10,100,2300)','HardMETPt>200 && NPhotons>=1',False]
 plotBundle['OnePho_nPhotons'] = ['NPhotons>>hadc(3,1,4)','HardMETPt>200 && NPhotons>=1',False]
 
@@ -141,15 +126,10 @@ for key in plotBundle:
     else: hobs.SetTitle('observed')
     hobs.GetXaxis().SetTitle(key.split('_')[-1])
     hrands.GetXaxis().SetTitle(key.split('_')[-1])
-    hrands.SetTitle('rebalance and smeared')
-    if dopred: 
-        hratio, hmethodsyst = FabDrawSystyRatio(c1,leg,hobs,[hrands],datamc='MC',lumi='n/a', title = '', LinearScale=False, fractionthing='observed / method')
-        c1.Update()
-        c1.Write('c_'+key)
-        c1.Print('pdfs/Closure/'+key+'.pdf')        
+    hrands.SetTitle('rebalance and smeared')        
     hrands.Write('h'+hrands.GetName())
     hobs.Write('h'+hobs.GetName())
-    print sys.argv
+
 
 
 

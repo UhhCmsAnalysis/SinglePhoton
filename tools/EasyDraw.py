@@ -10,7 +10,7 @@ tree.Show(0)
 c = mkcanvas('c1')
 tree.Draw('MHT')
 
-c1.Update()
+
 
 hist = tree.GetHistogram().Clone('hist')
 histoStyler(hist, kBlack)
@@ -19,4 +19,6 @@ hist.GetYaxis().SetTitle('Events/bin')
 hist.SetTitle('')
 hist.Draw('hist')
 
+c1.Update()
 pause()
+

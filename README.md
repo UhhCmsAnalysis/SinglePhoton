@@ -17,6 +17,8 @@ mkdir output
 mkdir output/smallchunks
 mkdir output/mediumchunks
 mkdir output/bigchunks
+mkdir output/signals/
+mkdir figures/
 ```
 
 Now we should be ready to make plots. Testing 2

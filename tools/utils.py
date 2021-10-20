@@ -381,17 +381,10 @@ def FabDraw(cGold,leg,hTruth,hComponents,datamc='MC',lumi=35.9, title = '', Line
     hTruthCopy = hTruth.Clone('hTruthClone'+hComponents[0].GetName())
     hRatio = hTruthCopy.Clone('hRatioClone')#hComponents[0].Clone('hRatioClone')#+hComponents[0].GetName()+'testing
     hRatio.SetMarkerStyle(20)
-    #hFracDiff = hComponents[0].Clone('hFracDiff')
-    #hFracDiff.SetMarkerStyle(20)
     hTruthCopy.SetMarkerStyle(20)
     hTruthCopy.SetMarkerColor(1) 
-    #histoStyler(hFracDiff, 1)
     histoStyler(hTruthCopy, 1)
-    #hFracDiff.Add(hTruthCopy,-1)
-    #hFracDiff.Divide(hTruthCopy)
-    #hRatio.Divide(hTruthCopy)
     hRatio.Divide(hComponents[0])
-    hRatio.GetYaxis().SetRangeUser(0.0,.1)###
     hRatio.SetTitle('')
     if 'prediction' in title0: hFracDiff.GetYaxis().SetTitle('(RS-#Delta#phi)/#Delta#phi')
     else: hRatio.GetYaxis().SetTitle(fractionthing)
@@ -604,7 +597,7 @@ def stampFab(lumi = 'n/a',datamc='MC'):
     #tl.DrawLatex(0.14,0.74, ('MC' in datamc)*' simulation'+' internal')
     tl.SetTextFont(regularfont)
     if lumi=='': tl.DrawLatex(0.62,0.82,'#sqrt{s} = 13 TeV')
-    else: tl.DrawLatex(0.63,0.82,str(lumi)+' fb^{-1}'+'(13 TeV)')
+    else: tl.DrawLatex(0.56,0.82,str(lumi)+' fb^{-1}'+'(13 TeV)')
     #tl.DrawLatex(0.64,0.82,'#sqrt{s} = 13 TeV')#, L = '+str(lumi)+' fb^{-1}')	
     tl.SetTextSize(tl.GetTextSize()/1.6)
 
