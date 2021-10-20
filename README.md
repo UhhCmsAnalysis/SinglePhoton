@@ -1,6 +1,6 @@
 # SinglePhoton
 
-##
+## Quick set up
 Here are some quick commands to get set up and rolling. To do once,
 when it's your first time setting up CMSSW:
 ```
@@ -21,6 +21,7 @@ mkdir output/signals/
 mkdir figures/
 ```
 
+## Draw a simple plot
 Now we should be ready to make plots. For a very straightforward
 skeleton for drawing  a single plot on a canvas, you can test
 
@@ -33,6 +34,8 @@ and styles the histogram on a canvas. The last function is
 ```pause```, and the idea is it halts the program where it is while
 you can interact with canvases, or save them as pdfs, etc.
 
+
+## Draw a stack plot with ratio panel
 Now perhaps we can try creating a properly-weighted stack of
 background events and comparing them to the signal model. First, let's
 draw a suite of histograms, one set per distinct process, and
