@@ -5,7 +5,7 @@ from glob import glob
 gROOT.SetBatch(1)
 
 datamc = 'data'
-datamc = 'mc'
+datamc = 'mc' # why the same variable?
 
 
 
@@ -16,7 +16,7 @@ try: year = sys.argv[1]
 except:
     year = '2017'
     year = '2016'
-    year = '2018'    
+    year = '2018'    # why the same variable?
 
 mcstring = {}
 mcstring['2016'] = 'Summer16v3'
@@ -31,17 +31,41 @@ histOfFile = {}
 #prediction_sources['FakeMet']         = 'output/bigchunks/'+mcstring[year]+'.GJets.root'
 
 
-#prediction_sources['t#bar{t}+jets'] = 'output/bigchunks/'+mcstring[year]+'.TTJets.root'
-#prediction_sources['W+jets'] = 'output/bigchunks/'+mcstring[year]+'.WJetsToLNu.root'
+prediction_sources['t#bar{t}+jets'] = 'output/bigchunks/'+mcstring[year]+'.TTJets.root'
+prediction_sources['W+jets'] = 'output/bigchunks/'+mcstring[year]+'.WJetsToLNu.root'
+#old (all HT in one file, hence one color):
 prediction_sources['#gamma+jets'] = 'output/bigchunks/'+mcstring[year]+'.GJets.root'
+
+#new (added Oct 27):
+#prediction_sources['#gamma+jets600toinf'] = 'output/bigchunks/'+mcstring[year]+'.GJets600toinf.root'
+#prediction_sources['#gamma+jets400to600'] = 'output/bigchunks/'+mcstring[year]+'.GJets400to600.root'
+#prediction_sources['#gamma+jets200to400'] = 'output/bigchunks/'+mcstring[year]+'.GJets200to400.root'
+#prediction_sources['#gamma+jets100to200'] = 'output/bigchunks/'+mcstring[year]+'.GJets100to200.root'
+
 prediction_sources['Z#gamma+jets'] = 'output/bigchunks/'+mcstring[year]+'.ZGTo2NuG.root'
-    
         
 
 colors = [2,4, kTeal-5, kYellow+2, kOrange+1, kGreen-2, kGreen-1, kGreen, kGreen+1, kGreen+2]
 
+
+
 #fkeys = [['W+jets',kYellow+1],['GJets',kOrange+1], ['t#bar{t}+jets',kTeal-5], ['ZG+jets', kViolet+2]]#,['WJets',kYellow+1]
-fkeys = [['#gamma+jets',kOrange+1], ['Z#gamma+jets', kViolet+2]]
+
+#old:
+#fkeys = [['#gamma+jets',kOrange+1], ['Z#gamma+jets', kViolet+2]]
+
+#new:
+#fkeys = [['#gamma+jets100to200', kTeal-5],['#gamma+jets200to400', kGreen-1],['#gamma+jets400to600', kCyan],['#gamma+jets600toinf', kOrange+1],['Z#gamma+jets', kViolet+2]]
+
+#Colors by Franzi (warm)
+# kYellow+2, kOrange+4, kOrange+2, kOrange-2, kCyan+3, kYellow-1
+
+#Colors by Franzi (cold)
+#kSpring+5, kAzure-9, kOrange, kOrange-3, kCyan+3, kGreen-5, kYellow-4
+
+fkeys = [['Z#gamma+jets', kOrange], ['t#bar{t}+jets', kOrange-3],['W+jets', kGreen-5],['#gamma+jets', kCyan+3]]
+
+
 
 
 
@@ -55,10 +79,10 @@ if year=='2016':
     datasource = 'output/bigchunks/Run2016_DoubleEG.root'
 if year=='2017':
     datasource = 'output/bigchunks/Run2017_Photon.root'
-    datasource = 'output/bigchunks/Run2017_DoubleEG.root'
+    datasource = 'output/bigchunks/Run2017_DoubleEG.root' # why the same variable?
     lumi = 41.52
 if year=='2018':
-    datasource = 'output/bigchunks/2018Observed.root'
+    datasource = 'output/bigchunks/2018Obs.root'
     lumi = 54.52
 if year=='Run2':
     datasource = 'output/bigchunks/Run2_DoubleEG.root'
@@ -72,9 +96,9 @@ if year=='2018C':
 
     
 fdata = TFile(datasource)
-fdata.ls()
+print fdata.ls()
 keys = fdata.GetListOfKeys()
-keys = sorted(keys,key=lambda thing: thing.GetName())
+keys = sorted(keys, key=lambda thing: thing.GetName())
 
 redoBinning = {}
 
@@ -85,7 +109,8 @@ gROOT.ForceStyle()
 
 newfile = TFile('plots_'+year+'_'+finalstate+'.root','recreate')
 
-fkeys.reverse()
+#following line is commented bc. wanted to change order of backgrounds in histogram
+#fkeys.reverse()
 
 for key in keys:
     name = key.GetName()
@@ -101,7 +126,6 @@ for key in keys:
     hpreds = []
     
     for fkey, color in fkeys:
-        fname_pred = prediction_sources[fkey]
         print 'fkey', fkey
 
         fname_pred = prediction_sources[fkey]
@@ -175,6 +199,7 @@ for key in keys:
         sighists.append(hist)
         sighists[-1].Draw('hist same')
         leg2.AddEntry(hist, fsigname.split('/')[-1].split('weightedHists_posterior-')[-1].split('-SUS')[0].split('SMS-')[-1].split('_RA2')[0].replace('.root',''))
+        
     leg2.Draw('same')
     hratio.GetYaxis().SetRangeUser(0.0,2.0)
     print 'setting', kinvar, 'title to', kinvar.replace('mva_','(for MVA) ')
@@ -184,14 +209,14 @@ for key in keys:
     cGold.Write(cname)
     #print 'trying:','pdfs/ClosureTests/'+selection+'_'+method+'And'+standard+'_'+kinvar+'.pdf'
     cGold.Print('figures/'+datasource.split('/')[-1].replace('.root','')+cname[1:]+'.png')
+    #cGold.Print('figures/'+datasource.split('/')[-1].replace('.root','')+cname[1:]+'.pdf')
 
 
 print 'just created', newfile.GetName()
+
 '''
 scp pdfs/Validation/ beinsam@naf-cms11.desy.de:/afs/desy.de/user/b/beinsam/www/Diphoton/Validation/23March2021/TwoElectrons/
 '''
-
-
 
 
 
