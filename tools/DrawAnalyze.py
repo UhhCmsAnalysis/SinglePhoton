@@ -19,7 +19,6 @@ hadd -f output/bigchunks/2018Observed.root output/bigchunks/*.root
 rm output/signals/*
 cp output/mediumchunks/weightedHists*pMSSM_MCMC*.root output/signals/
 
-
 '''
 
 try: fileskey = sys.argv[1]
@@ -54,12 +53,13 @@ chain.Show(0)
 print 'nevents in skim =', chain.GetEntries()
 
 
-isprivatesignal = bool('pMSSM' in fins)
+isprivatesignal = bool('pMSSM' in fins[0])
 if isprivatesignal:
     xsecdict = {'pMSSM_MCMC_106_19786': 1.26100000e-01, 'pMSSM_MCMC_399_10275': 3.98200000e-02, 'pMSSM_MCMC_473_54451': 9.87200000e-01, 'pMSSM_MCMC_86_7257': 2.99100000e-03, 'pMSSM_MCMC_70_90438':7.52100000e-01}
     thekey = 'pMSSM'+fname.split('pMSSM')[-1].split('-SUS')[0]
     xsec = xsecdict[thekey]
     evtweight = str(xsec)+'/'+str(nev_total)
+    print 'the key', thekey, 'got weight', xsec
 elif isdata: evtweight = '1'
 else: evtweight = 'CrossSection/'+str(nev_total)
 
