@@ -44,9 +44,9 @@ really more):
 
 
 ```
-python tools/DrawAnalyze.py "/nfs/dust/cms/user/beinsam/CommonSamples/SinglePhoRandS_skimsv8/posterior-Autumn18.GJets_DR-0p4_HT-600ToInf_Tune*.root"
-python tools/DrawAnalyze.py "/nfs/dust/cms/user/beinsam/CommonSamples/SinglePhoRandS_skimsv8/posterior-Autumn18.ZGTo2NuG_Tune*.root"
-python tools/DrawAnalyze.py "/nfs/dust/cms/user/beinsam/CommonSamples/SinglePhoRandS_skimsv8/posterior-pMSSM_MCMC_86_7257*.root"
+python tools/DrawAnalyze.py "/pnfs/desy.de/cms/tier2/store/user/sbein/CommonSamples/Photons/SinglePhoRandS_skimsv8c/posterior-Autumn18.GJets_DR-0p4_HT-600ToInf_Tune*.root"
+python tools/DrawAnalyze.py "/pnfs/desy.de/cms/tier2/store/user/sbein/CommonSamples/Photons/SinglePhoRandS_skimsv8c/posterior-Autumn18.ZGTo2NuG_Tune*.root"
+python tools/DrawAnalyze.py "/pnfs/desy.de/cms/tier2/store/user/sbein/CommonSamples/Photons/SinglePhoRandS_skimsv8c/posterior-pMSSM_MCMC_86_7257*.root"
 ```
 
 One file per command above has been created and cached away in
